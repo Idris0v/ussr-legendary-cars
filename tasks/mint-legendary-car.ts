@@ -1,7 +1,7 @@
 import { task } from "hardhat/config";
 import "@nomiclabs/hardhat-ethers";
 
-task('mint', 'Mint nft')
+task('mintlegend', 'Mint nft')
     .addParam('receiver', 'token to mint to')
     .addParam('tokenuri', 'token uri')
     .setAction(async ({ receiver, tokenuri }, { ethers }) => {

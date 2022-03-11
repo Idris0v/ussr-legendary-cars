@@ -22,12 +22,21 @@ describe("LegendaryCars", function () {
 
   it("Should mint nft", async function () {
     const user1Address = user1.address;
-    const filter = legendaryCars.filters.Transfer(null, user1Address);
     const mintTx = await legendaryCars.mint(user1Address, "testURI");
     await mintTx.wait();
     
     expect(Number(await legendaryCars.balanceOf(user1Address))).to.equal(1);
     expect(await legendaryCars.tokenURI(1)).to.equal("ipfs://testURI");
+  });
+
+  it("Should burn nft", async function () {
+    const user1Address = user1.address;
+    const mintTx = await legendaryCars.mint(user1Address, "testURI");
+    await mintTx.wait();
+    const burnTx = await legendaryCars.burn(1);
+    await burnTx.wait();
+
+    expect(Number(await legendaryCars.balanceOf(user1Address))).to.equal(0);
   });
 
   it("Should emit event", async function () {
@@ -38,6 +47,5 @@ describe("LegendaryCars", function () {
 
   it("Should return baseURI", async function () {
     expect(await legendaryCars.baseTokenURI()).to.equal("ipfs://");
-
   });
 });
