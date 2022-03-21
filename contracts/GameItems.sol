@@ -8,9 +8,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract GameItems is ERC1155, Ownable {
     enum Items {
+        Platinum,
         Gold,
-        Silver,
-        FirstAidKit
+        Silver
     }
 
     constructor(string memory itemsCID) ERC1155(string(abi.encodePacked("ipfs://", itemsCID, "/{id}.json"))) {
@@ -21,6 +21,7 @@ contract GameItems is ERC1155, Ownable {
     }
 
     function burn(address from, Items id, uint256 amount) external {
+        require(balanceOf(msg.sender, uint(id)) >= amount, "insufficient balance");
         _burn(from, uint(id), amount);
     }
 }
