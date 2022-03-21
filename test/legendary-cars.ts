@@ -1,7 +1,7 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { LegendaryCars } from "../typechain";
+import { LegendaryCars, LegendaryCars__factory } from "../typechain";
 
 describe("LegendaryCars", function () {
   let legendaryCars: LegendaryCars;
@@ -11,7 +11,7 @@ describe("LegendaryCars", function () {
 
   beforeEach(async () => {
     [owner, user1, user2] = await ethers.getSigners();
-    const LegendaryCars = await ethers.getContractFactory("LegendaryCars");
+    const LegendaryCars: LegendaryCars__factory = await ethers.getContractFactory("LegendaryCars");
     legendaryCars = await LegendaryCars.deploy();
     await legendaryCars.deployed();
   });
